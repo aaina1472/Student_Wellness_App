@@ -582,8 +582,11 @@ elif st.session_state.page == "💬 Terra Chat":
     
     # Initialize OpenAI client
     if "openai_client" not in st.session_state:
-        from openai import OpenAI
-        st.session_state.openai_client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+        import openai
+        openai.api_key = st.secrets["OPENAI_API_KEY"]
+        response = openai.ChatCompletion.create(...)
+
+
     
     # Initialize chat history if not exists
     if "chat_history" not in st.session_state:
@@ -615,14 +618,16 @@ elif st.session_state.page == "💬 Terra Chat":
         
         try:
             # Generate response using the new API
-            response = st.session_state.openai_client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are Terra, a friendly, nature-inspired wellness assistant. Use plant/animal metaphors and keep responses under 3 sentences."},
-                    *[{"role": msg["role"], "content": msg["content"]} for msg in st.session_state.chat_history]
-                ],
-                temperature=0.7,
+           response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "..."},
+                        *chat_history
+                    ],
+                    temperature=0.7,
             )
+
+
             
             # Get the assistant's reply
             assistant_reply = response.choices[0].message.content
