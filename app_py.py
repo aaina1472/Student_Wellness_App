@@ -630,13 +630,13 @@ elif st.session_state.page == "💬 Terra Chat":
 
             
             # Get the assistant's reply
-            assistant_reply = response.choices[0].message.content
+                assistant_reply = response.choices[0].message.content
             
             # Add assistant response to chat history
-            st.session_state.chat_history.append({"role": "assistant", "content": assistant_reply})
+                st.session_state.chat_history.append({"role": "assistant", "content": assistant_reply})
             
             # Rerun to update the chat display
-            st.rerun()
+                st.rerun()
             
         except Exception as e:
             error_msg = f"I'm having trouble connecting right now. Please try again later. (Error: {str(e)})"
